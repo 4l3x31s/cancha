@@ -1,3 +1,4 @@
+import { TamanioService, Tamanio } from './services/tamanio.service';
 import { Component } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
@@ -13,13 +14,19 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private tamanioService: TamanioService
   ) {
     this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
+      let tamanio: Tamanio = {
+        ancho: this.platform.width(),
+        alto: this.platform.height()
+      };
+      this.tamanioService.setTamanio(tamanio);
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
